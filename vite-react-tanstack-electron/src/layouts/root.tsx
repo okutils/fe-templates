@@ -6,7 +6,7 @@ import { Navbar } from '@/components/navbar';
 
 export const Root: FC = () => {
   return (
-    <div className="app-shell">
+    <div>
       <Navbar>Electron + React</Navbar>
       <div className="app-content">
         <Outlet />

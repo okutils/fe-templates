@@ -12,7 +12,12 @@
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "typecheck": "tsc -b",
-    "package": "pnpm typecheck && electron-forge package"
+    "package": "pnpm package:mac && pnpm package:win",
+    "package:mac:arm64": "pnpm typecheck && electron-forge package --platform=darwin --arch=arm64",
+    "package:mac": "pnpm package:mac:arm64",
+    "package:win:x64": "pnpm typecheck && electron-forge package --platform=win32 --arch=x64",
+    "package:win:arm64": "pnpm typecheck && electron-forge package --platform=win32 --arch=arm64",
+    "package:win": "pnpm package:win:x64 && pnpm package:win:arm64"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.170.38",

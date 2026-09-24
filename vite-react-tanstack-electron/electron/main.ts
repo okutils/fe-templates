@@ -25,6 +25,9 @@ const createWindow = () => {
   const window = new BrowserWindow({
     width: 1000,
     height: 700,
+    titleBarStyle: 'hidden',
+    titleBarOverlay:
+      process.platform === 'win32' ? { color: '#00000000' } : true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       nodeIntegration: false,

@@ -1,7 +1,5 @@
 .navbar {
-  --navbar-height: 36px;
-  flex: 0 0 auto;
-  height: var(--navbar-height);
+  flex-shrink: 0;
   -webkit-app-region: drag;
   user-select: none;
 }
@@ -10,18 +8,10 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  height: var(--navbar-height);
-  padding-inline: 12px;
+  height: 100%;
+  padding: 0 12px;
   overflow: hidden;
   white-space: nowrap;
-}
-
-/* CSS follows geometry changes without sending dimensions through React or IPC. */
-.navbar[data-overlay-visible='true'] {
-  --navbar-height: env(titlebar-area-height, 36px);
-  height: calc(env(titlebar-area-y, 0px) + var(--navbar-height));
-  padding-top: env(titlebar-area-y, 0px);
-  box-sizing: border-box;
 }
 
 .navbar[data-overlay-visible='true'] .navbar__content {
@@ -29,12 +19,19 @@
   width: env(titlebar-area-width, 100%);
 }
 
-.navbar
-  :is(a, button, input, select, textarea, [role='button'], [data-no-drag]) {
+.navbar a,
+.navbar button,
+.navbar input,
+.navbar select,
+.navbar textarea,
+.navbar [role='button'],
+.navbar [data-no-drag],
+.navbar [contenteditable='true'] {
   -webkit-app-region: no-drag;
 }
 
-.navbar :is(input, textarea, [contenteditable='true']) {
-  -webkit-app-region: no-drag;
+.navbar input,
+.navbar textarea,
+.navbar [contenteditable='true'] {
   user-select: text;
 }

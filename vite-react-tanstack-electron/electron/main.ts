@@ -3,6 +3,7 @@ import { pathToFileURL } from 'node:url';
 
 import { app, BrowserWindow } from 'electron';
 
+import { TITLE_BAR_HEIGHT } from '../shared/constants/ui';
 import { registerIpcHandlers } from './ipc';
 
 let mainWindow: BrowserWindow | null = null;
@@ -26,8 +27,13 @@ const createWindow = () => {
     width: 1000,
     height: 700,
     titleBarStyle: 'hidden',
-    titleBarOverlay:
-      process.platform === 'win32' ? { color: '#00000000' } : true,
+    titleBarOverlay: {
+      height: TITLE_BAR_HEIGHT,
+      ...(process.platform === 'win32' ? { color: '#00000000' } : {}),
+    },
+    ...(process.platform === 'darwin'
+      ? { trafficLightPosition: { x: 12, y: (TITLE_BAR_HEIGHT - 12) / 2 } }
+      : {}),
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       nodeIntegration: false,
